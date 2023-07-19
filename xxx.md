@@ -1,3 +1,11 @@
+NIP-XXX
+------------------------------------
+Git Remote Index and Commit Checkpoints
+------------------------------------
+
+`draft` `optional` `author:armstrys`
+
+# Git Kinds
 The goal of this nip is to introduce mechanisms for git remote repository discovery and commit checkpointing into the nostr protocol. Git is already decentralized by nature. Centralized clients like GitHub serve two primary purposes. First, they provide one central remote repository. Secondly, they provide a platform for non-git metadata tracking. 
 
 A decentralized implementation on nostr should replace the central remote repository with discovery mechanisms that take advantage of the already decentralized nature of git. To do so, this nip introduces a git repository kind and a git checkpoint kind that establishes a nostr event for key commits needed for metadata tracking via nostr. 
@@ -6,10 +14,14 @@ This nip introduces two new kinds:
     - a git repository parameterized replaceable kind (34617) to provide updateable connection points to existing git repositories or servers
     - and a git checkpoint event kind (4617) which has the sole purpose of providing a coordination reference point for key commits in a git repository.
 
+# Git Tags
+
 Additionally, we introduce 3 application-specific tags that should be used in conjunction with the git checkpoint kind
 1. A ”c” tag that takes a commit, an optional branch name, and a marker ('', 'head',  'compare', 'output') like so `["c",  "<commit hash>", "<branch name>","<marker>"]`
 2. A “branch” tag that identifies the name of the base branch and the head commit of the branch
 3. A “cmd” tag that provides a plain text history of commands that a user ran to generate a merge output (e.g. `“git checkout <base hash>\ngit merge <compare hash> —no-ff”` so that others can replicate/validate the merge. 
+
+# Git Remote Definition
 
 Using the git-branch tag, a repository location can be defined as:
 
@@ -29,6 +41,8 @@ Using the git-branch tag, a repository location can be defined as:
   "content": "<address to remote>"
 }
 ```
+
+# Git Checkpoint Definition
 
 The usage of “c” marked tags should can differentiate between 5 usages of kind 34617:
 1. An event with a “c” tag and no marker or “” should be interpreted as a release/tag and should reply to the appropriate commit. Any other commit tags should be ignored
