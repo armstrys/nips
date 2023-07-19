@@ -16,10 +16,9 @@ This nip introduces two new kinds:
 
 # Git Tags
 
-Additionally, we introduce 3 application-specific tags that should be used in conjunction with the git checkpoint kind
+Additionally, we introduce two application-specific tags that should be used in conjunction with the git checkpoint kind
 1. A ”c” tag that takes a commit, an optional branch name, and a marker ('', 'head',  'compare', 'output') like so `["c",  "<commit hash>", "<branch name>","<marker>"]`
-2. A “branch” tag that identifies the name of the base branch and the head commit of the branch
-3. A “cmd” tag that provides a plain text history of commands that a user ran to generate a merge output (e.g. `“git checkout <base hash>\ngit merge <compare hash> —no-ff”` so that others can replicate/validate the merge. 
+2. A "git-history" tag that provides a plain text history of commands that a user ran to generate a merge output (e.g. `“git checkout <base hash>\ngit merge <compare hash> —no-ff”`).
 
 # Git Remote Definition
 
